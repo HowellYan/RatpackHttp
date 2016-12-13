@@ -1,8 +1,13 @@
 app.mysql_aliyun=${app_mysql_aliyun}
 app.mysql_aliyun_user=${app_mysql_aliyun_user}
 app.mysql_aliyun_pass=${app_mysql_aliyun_pass}
-
-
+app.mysql_aliyun_driver=${app_mysql_aliyun_driver}
+app.mysql_aliyun_url=${app_mysql_aliyun_url}
+app.mysql_aliyun_maxActive=${app_mysql_aliyun_maxActive}
+app.mysql_aliyun_maxIdel=${app_mysql_aliyun_maxIdel}
+app.mysql_aliyun_maxWait=${app_mysql_aliyun_maxWait}
+app.mybatis_typeAliases_Package=${app_mybatis_typeAliases_Package}
+app.mybatis_mapper_Locations=${app_mybatis_mapper_Locations}
 
 logLevel=${logLevel}
 logRoot=${logRoot}

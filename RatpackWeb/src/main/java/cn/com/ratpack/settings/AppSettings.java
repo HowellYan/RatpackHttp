@@ -9,5 +9,95 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "app",locations = "classpath:config/app.properties")
 public class AppSettings {
+    String mysql_aliyun;
+    String mysql_aliyun_user;
+    String mysql_aliyun_pass;
+    String mysql_aliyun_driver;
+    String mysql_aliyun_url;
+    String mysql_aliyun_maxActive;
+    String mysql_aliyun_maxIdel;
+    String mysql_aliyun_maxWait;
+    String mybatis_typeAliases_Package;
+    String mybatis_mapper_Locations;
 
+
+    public String getMysql_aliyun() {
+        return mysql_aliyun;
+    }
+
+    public void setMysql_aliyun(String mysql_aliyun) {
+        this.mysql_aliyun = mysql_aliyun;
+    }
+
+    public String getMysql_aliyun_user() {
+        return mysql_aliyun_user;
+    }
+
+    public void setMysql_aliyun_user(String mysql_aliyun_user) {
+        this.mysql_aliyun_user = mysql_aliyun_user;
+    }
+
+    public String getMysql_aliyun_pass() {
+        return mysql_aliyun_pass;
+    }
+
+    public void setMysql_aliyun_pass(String mysql_aliyun_pass) {
+        this.mysql_aliyun_pass = mysql_aliyun_pass;
+    }
+
+    public String getMysql_aliyun_driver() {
+        return mysql_aliyun_driver;
+    }
+
+    public void setMysql_aliyun_driver(String mysql_aliyun_driver) {
+        this.mysql_aliyun_driver = mysql_aliyun_driver;
+    }
+
+    public String getMysql_aliyun_url() {
+        return mysql_aliyun_url;
+    }
+
+    public void setMysql_aliyun_url(String mysql_aliyun_url) {
+        this.mysql_aliyun_url = mysql_aliyun_url;
+    }
+
+    public String getMysql_aliyun_maxActive() {
+        return mysql_aliyun_maxActive;
+    }
+
+    public void setMysql_aliyun_maxActive(String mysql_aliyun_maxActive) {
+        this.mysql_aliyun_maxActive = mysql_aliyun_maxActive;
+    }
+
+    public String getMysql_aliyun_maxIdel() {
+        return mysql_aliyun_maxIdel;
+    }
+
+    public void setMysql_aliyun_maxIdel(String mysql_aliyun_maxIdel) {
+        this.mysql_aliyun_maxIdel = mysql_aliyun_maxIdel;
+    }
+
+    public String getMysql_aliyun_maxWait() {
+        return mysql_aliyun_maxWait;
+    }
+
+    public void setMysql_aliyun_maxWait(String mysql_aliyun_maxWait) {
+        this.mysql_aliyun_maxWait = mysql_aliyun_maxWait;
+    }
+
+    public String getMybatis_typeAliases_Package() {
+        return mybatis_typeAliases_Package;
+    }
+
+    public void setMybatis_typeAliases_Package(String mybatis_typeAliases_Package) {
+        this.mybatis_typeAliases_Package = mybatis_typeAliases_Package;
+    }
+
+    public String getMybatis_mapper_Locations() {
+        return mybatis_mapper_Locations;
+    }
+
+    public void setMybatis_mapper_Locations(String mybatis_mapper_Locations) {
+        this.mybatis_mapper_Locations = mybatis_mapper_Locations;
+    }
 }

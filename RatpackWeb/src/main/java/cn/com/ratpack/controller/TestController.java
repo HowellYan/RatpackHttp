@@ -1,7 +1,10 @@
 package cn.com.ratpack.controller;
 
+import cn.com.ratpack.Dao.UserDao;
+import cn.com.ratpack.dbModel.UserModel;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import ratpack.exec.Promise;
@@ -16,6 +19,8 @@ import ratpack.http.TypedData;
 @Slf4j
 public class TestController {
 
+    @Autowired
+    private UserDao userDao;
 
     @Bean
     public Action<Chain> index() {
@@ -24,9 +29,14 @@ public class TestController {
         jsonObject.put("code","000000");
 
         return chain -> chain
-                .get(ctx -> ctx
-                        .render(jsonObject.toString())
-                );
+                .get(ctx ->{
+                    UserModel userModel = userDao.findByID("1");
+                    jsonObject.put("id", userModel.getID());
+                    jsonObject.put("name", userModel.getUser_login());
+                    jsonObject.put("pass", userModel.getUser_pass());
+                    log.info("ok");
+                    ctx.render(jsonObject.toString());
+                });
     }
 
     @Bean

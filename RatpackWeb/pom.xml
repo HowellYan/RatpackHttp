@@ -17,37 +17,89 @@
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/io.ratpack/ratpack-guice -->
+        <dependency>
+            <groupId>RatpackHttp</groupId>
+            <artifactId>RatpackModel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>RatpackHttp</groupId>
+            <artifactId>RatpackService</artifactId>
+        </dependency>
+
+
         <dependency>
             <groupId>io.ratpack</groupId>
             <artifactId>ratpack-guice</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.ratpack/ratpack-core -->
         <dependency>
             <groupId>io.ratpack</groupId>
             <artifactId>ratpack-core</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.ratpack/ratpack-session -->
         <dependency>
             <groupId>io.ratpack</groupId>
             <artifactId>ratpack-session</artifactId>
         </dependency>
-
         <dependency>
             <groupId>io.ratpack</groupId>
             <artifactId>ratpack-spring-boot</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.mybatis.spring.boot</groupId>-->
+            <!--<artifactId>mybatis-spring-boot-starter</artifactId>-->
+        <!--</dependency>-->
+
+
 
         <dependency>
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
             <classifier>jdk15</classifier>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
 
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -65,7 +117,7 @@
     </dependencies>
 
     <build>
-
+        <directory>${project.basedir}/../target</directory>
         <plugins>
             <plugin>
                 <!--需要使用这个插件配合下面的resources标签，不然ops.properties不能争取获取项目信息和git的信息-->
