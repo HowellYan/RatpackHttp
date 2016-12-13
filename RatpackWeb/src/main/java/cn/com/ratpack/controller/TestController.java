@@ -1,5 +1,6 @@
 package cn.com.ratpack.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import ratpack.http.TypedData;
  * Created by Howell on 12/12/16.
  */
 @Controller
+@Slf4j
 public class TestController {
 
 
@@ -52,7 +54,7 @@ public class TestController {
                             }
                         });
                         method.get(()->{
-                            System.out.println(1);
+                            log.info("之后:"+"sss");
                             jsonObject.put("code","090909");
                             context.getResponse().send(jsonObject.toString());
                         });

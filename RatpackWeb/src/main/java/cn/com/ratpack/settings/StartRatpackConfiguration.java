@@ -54,9 +54,8 @@ public class StartRatpackConfiguration implements CommandLineRunner {
         private ServerConfig serverConfig;
         @Autowired
         private ChainConfigurers chainConfigurers;
-        @Autowired(
-                required = false
-        )
+
+        @Autowired(required = false)
         private List<RatpackServerCustomizer> customizers = Collections.emptyList();
 
         protected ServerConfiguration() {
@@ -93,9 +92,7 @@ public class StartRatpackConfiguration implements CommandLineRunner {
         @Autowired
         RatpackSettings ratpackSettings;
 
-        @Autowired(
-                required = false
-        )
+        @Autowired(required = false)
         private List<RatpackServerCustomizer> customizers = Collections.emptyList();
 
         protected ServerConfigConfiguration() {
