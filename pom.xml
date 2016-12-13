@@ -10,6 +10,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>RatpackWeb</module>
+        <module>RatpackModel</module>
+        <module>RatpackService</module>
+        <module>RatpackCommons</module>
     </modules>
 
     <properties>
