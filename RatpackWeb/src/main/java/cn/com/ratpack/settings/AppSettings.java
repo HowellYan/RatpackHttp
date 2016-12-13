@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
  * Created by Howell on 13/12/16.
  */
 @Configuration
-@ConfigurationProperties(prefix = "App",locations = "classpath:config/app.properties")
+@ConfigurationProperties(prefix = "app",locations = "classpath:config/app.properties")
 public class AppSettings {
 
 }
