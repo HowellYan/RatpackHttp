@@ -1,0 +1,8 @@
+app.mysql_aliyun=${app_mysql_aliyun}
+app.mysql_aliyun_user=${app_mysql_aliyun_user}
+app.mysql_aliyun_pass=${app_mysql_aliyun_pass}
+
+
+
+logLevel=${logLevel}
+logRoot=${logRoot}
