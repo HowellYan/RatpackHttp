@@ -40,16 +40,20 @@
                 <artifactId>ratpack-session</artifactId>
                 <version>${ratpack.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/io.ratpack/ratpack-spring-boot-starter -->
+
+            <!-- https://mvnrepository.com/artifact/io.ratpack/ratpack-spring-boot -->
             <dependency>
                 <groupId>io.ratpack</groupId>
-                <artifactId>ratpack-spring-boot-starter</artifactId>
+                <artifactId>ratpack-spring-boot</artifactId>
                 <version>${ratpack.version}</version>
             </dependency>
+
+
+            <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>${spring.boot.version}</version>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>1.4.2.RELEASE</version>
             </dependency>
 
             <dependency>
@@ -57,6 +61,12 @@
                 <artifactId>json-lib</artifactId>
                 <version>2.2.3</version>
                 <classifier>jdk15</classifier>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.7.21</version>
             </dependency>
 
         </dependencies>
