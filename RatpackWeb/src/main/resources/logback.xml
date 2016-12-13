@@ -31,6 +31,8 @@
         </encoder>
     </appender>
 
+    <logger name="dao" level="DEBUG"/>
+
     <root level="${logLevel}">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="InfoFile"/>
