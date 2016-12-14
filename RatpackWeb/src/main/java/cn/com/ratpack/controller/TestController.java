@@ -35,6 +35,9 @@ public class TestController {
                     jsonObject.put("name", userModel.getUser_login());
                     jsonObject.put("pass", userModel.getUser_pass());
                     log.info("ok");
+
+                    userDao.findAll();
+
                     ctx.render(jsonObject.toString());
                 });
     }

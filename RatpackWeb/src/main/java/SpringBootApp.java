@@ -1,3 +1,4 @@
+import cn.com.ratpack.config.MyBatisLog;
 import cn.com.ratpack.settings.StartRatpack;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -16,11 +17,14 @@ import org.springframework.context.annotation.ComponentScan;
         "cn.com.ratpack"
 })
 public class SpringBootApp   {
+
     public static void main(String... args) throws Exception {
-        org.apache.ibatis.logging.LogFactory.useSlf4jLogging();
-        org.apache.ibatis.logging.LogFactory.useLog4JLogging();
-        org.apache.ibatis.logging.LogFactory.useCommonsLogging();
-        org.apache.ibatis.logging.LogFactory.useStdOutLogging();
+        // org.apache.ibatis.logging.LogFactory.useSlf4jLogging();
+        // org.apache.ibatis.logging.LogFactory.useLog4JLogging();
+        // org.apache.ibatis.logging.LogFactory.useCommonsLogging();
+        // org.apache.ibatis.logging.LogFactory.useStdOutLogging();
+         org.apache.ibatis.logging.LogFactory.useCustomLogging(MyBatisLog.class);
+
 
         SpringApplication.run(SpringBootApp.class, args);
     }

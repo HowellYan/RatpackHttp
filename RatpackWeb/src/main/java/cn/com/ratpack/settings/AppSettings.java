@@ -15,11 +15,9 @@ public class AppSettings {
     String mysql_aliyun_driver;
     String mysql_aliyun_url;
     String mysql_aliyun_maxActive;
-    String mysql_aliyun_maxIdel;
+    String mysql_aliyun_minIdle;
     String mysql_aliyun_maxWait;
-    String mybatis_typeAliases_Package;
-    String mybatis_mapper_Locations;
-
+    String mysql_aliyun_timeBetweenEvictionRunsMillis;
 
     public String getMysql_aliyun() {
         return mysql_aliyun;
@@ -69,12 +67,12 @@ public class AppSettings {
         this.mysql_aliyun_maxActive = mysql_aliyun_maxActive;
     }
 
-    public String getMysql_aliyun_maxIdel() {
-        return mysql_aliyun_maxIdel;
+    public String getMysql_aliyun_minIdle() {
+        return mysql_aliyun_minIdle;
     }
 
-    public void setMysql_aliyun_maxIdel(String mysql_aliyun_maxIdel) {
-        this.mysql_aliyun_maxIdel = mysql_aliyun_maxIdel;
+    public void setMysql_aliyun_minIdle(String mysql_aliyun_minIdle) {
+        this.mysql_aliyun_minIdle = mysql_aliyun_minIdle;
     }
 
     public String getMysql_aliyun_maxWait() {
@@ -85,19 +83,11 @@ public class AppSettings {
         this.mysql_aliyun_maxWait = mysql_aliyun_maxWait;
     }
 
-    public String getMybatis_typeAliases_Package() {
-        return mybatis_typeAliases_Package;
+    public String getMysql_aliyun_timeBetweenEvictionRunsMillis() {
+        return mysql_aliyun_timeBetweenEvictionRunsMillis;
     }
 
-    public void setMybatis_typeAliases_Package(String mybatis_typeAliases_Package) {
-        this.mybatis_typeAliases_Package = mybatis_typeAliases_Package;
-    }
-
-    public String getMybatis_mapper_Locations() {
-        return mybatis_mapper_Locations;
-    }
-
-    public void setMybatis_mapper_Locations(String mybatis_mapper_Locations) {
-        this.mybatis_mapper_Locations = mybatis_mapper_Locations;
+    public void setMysql_aliyun_timeBetweenEvictionRunsMillis(String mysql_aliyun_timeBetweenEvictionRunsMillis) {
+        this.mysql_aliyun_timeBetweenEvictionRunsMillis = mysql_aliyun_timeBetweenEvictionRunsMillis;
     }
 }
