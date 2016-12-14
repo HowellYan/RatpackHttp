@@ -19,12 +19,8 @@ import org.springframework.context.annotation.ComponentScan;
 public class SpringBootApp   {
 
     public static void main(String... args) throws Exception {
-        // org.apache.ibatis.logging.LogFactory.useSlf4jLogging();
-        // org.apache.ibatis.logging.LogFactory.useLog4JLogging();
-        // org.apache.ibatis.logging.LogFactory.useCommonsLogging();
-        // org.apache.ibatis.logging.LogFactory.useStdOutLogging();
-         org.apache.ibatis.logging.LogFactory.useCustomLogging(MyBatisLog.class);
 
+        org.apache.ibatis.logging.LogFactory.useCustomLogging(MyBatisLog.class);
 
         SpringApplication.run(SpringBootApp.class, args);
     }
