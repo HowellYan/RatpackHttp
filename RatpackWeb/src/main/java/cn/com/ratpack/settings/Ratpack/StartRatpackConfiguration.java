@@ -1,5 +1,6 @@
-package cn.com.ratpack.settings;
+package cn.com.ratpack.settings.Ratpack;
 
+import cn.com.ratpack.settings.properties.RatpackSettings;
 import com.google.inject.Module;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -16,7 +17,6 @@ import ratpack.server.RatpackServer;
 import ratpack.server.ServerConfig;
 import ratpack.server.ServerConfigBuilder;
 import ratpack.spring.Spring;
-import ratpack.spring.config.RatpackConfiguration;
 import ratpack.spring.config.RatpackProperties;
 import ratpack.spring.config.RatpackServerCustomizer;
 import ratpack.spring.config.internal.ChainConfigurers;

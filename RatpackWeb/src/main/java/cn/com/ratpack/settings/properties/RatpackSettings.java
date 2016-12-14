@@ -1,4 +1,4 @@
-package cn.com.ratpack.settings;
+package cn.com.ratpack.settings.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

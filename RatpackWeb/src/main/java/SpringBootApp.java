@@ -1,5 +1,5 @@
-import cn.com.ratpack.config.MyBatisLog;
-import cn.com.ratpack.settings.StartRatpack;
+import cn.com.ratpack.settings.MyBatis.MyBatisLog;
+import cn.com.ratpack.settings.Ratpack.StartRatpack;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

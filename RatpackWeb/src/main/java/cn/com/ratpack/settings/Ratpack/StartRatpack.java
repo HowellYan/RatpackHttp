@@ -1,4 +1,4 @@
-package cn.com.ratpack.settings;
+package cn.com.ratpack.settings.Ratpack;
 
 import org.springframework.context.annotation.Import;
 

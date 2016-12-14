@@ -1,19 +1,15 @@
-package cn.com.ratpack.config;
+package cn.com.ratpack.settings.MyBatis;
 
-import cn.com.ratpack.settings.AppSettings;
+import cn.com.ratpack.settings.properties.AppSettings;
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.logging.jdbc.BaseJdbcLogger;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
-import java.io.InputStream;
 import java.util.Properties;
 
 /**
