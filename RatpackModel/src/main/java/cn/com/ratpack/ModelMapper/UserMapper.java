@@ -13,10 +13,10 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
 
-    @Select("SELECT * FROM wp_users WHERE ID = #{ID}")
+    @Select("SELECT * FROM DB_User WHERE u_id = #{ID}")
     UserModel findByID(@Param("ID") String ID);
 
-    @Select("SELECT * FROM wp_users")
+    @Select("SELECT * FROM DB_User")
     List<UserModel> findAll();
 
 }

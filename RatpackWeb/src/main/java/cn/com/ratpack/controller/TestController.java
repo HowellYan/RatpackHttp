@@ -31,9 +31,9 @@ public class TestController {
         return chain -> chain
                 .get(ctx ->{
                     UserModel userModel = userDao.findByID("1");
-                    jsonObject.put("id", userModel.getID());
-                    jsonObject.put("name", userModel.getUser_login());
-                    jsonObject.put("pass", userModel.getUser_pass());
+                    jsonObject.put("id", userModel.getU_id());
+                    jsonObject.put("name", userModel.getU_name());
+                    jsonObject.put("pass", userModel.getU_pass());
                     log.info("ok");
 
                     userDao.findAll();
