@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <configuration>
-    <property resource="./config/app.properties"/>
+    <property resource="config/app.properties"/>
 
     <!-- 按照每天生成日志文件 -->
     <appender name="InfoFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
