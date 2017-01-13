@@ -56,7 +56,12 @@ public class TestController {
                             System.out.println(context.getRequest().getContentType());
                             if(context.getRequest().getContentType().toString().contains("application/json")){
                                 json.then(typedData ->{
+
                                     System.out.println("post:"+typedData.getText());
+                                    JSONObject jsonReq = JSONObject.fromObject(typedData.getText());
+
+
+
                                     context.getResponse().send(typedData.getText());
                                 });
                             } else {
