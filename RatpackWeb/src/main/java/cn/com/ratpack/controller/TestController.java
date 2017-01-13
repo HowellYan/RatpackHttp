@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.connection.RedisClusterConnection;
 import org.springframework.stereotype.Controller;
 import ratpack.exec.Promise;
 import ratpack.func.Action;
@@ -22,6 +23,9 @@ public class TestController {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private RedisClusterConnection redisConnection;
+
     @Bean
     public Action<Chain> index() {
 
@@ -34,9 +38,13 @@ public class TestController {
                     jsonObject.put("id", userModel.getU_id());
                     jsonObject.put("name", userModel.getU_name());
                     jsonObject.put("pass", userModel.getU_pass());
-                    log.info("ok");
 
                     userDao.findAll();
+                    String result = "NO";
+
+                   // result = redisConnection;
+
+                    log.info("result : "+result);
 
                     ctx.render(jsonObject.toString());
                 });
@@ -59,8 +67,6 @@ public class TestController {
 
                                     System.out.println("post:"+typedData.getText());
                                     JSONObject jsonReq = JSONObject.fromObject(typedData.getText());
-
-
 
                                     context.getResponse().send(typedData.getText());
                                 });

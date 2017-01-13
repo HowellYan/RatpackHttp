@@ -1,23 +1,16 @@
 package cn.com.ratpack.settings.redis;
 
 import cn.com.ratpack.settings.properties.AppSettings;
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
-import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.connection.RedisClusterConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisSentinelConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisClusterConnection;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
-
-import java.lang.reflect.Method;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 
 /**
  * Created by Howell on 20/12/16.
@@ -28,53 +21,24 @@ public class RedisConfig {
     @Autowired
     AppSettings appSettings;
 
+    /**
+     * jedis
+     */
     @Bean
-    public KeyGenerator keyGenerator(){
-        return new KeyGenerator() {
-            @Override
-            public Object generate(Object target, Method method, Object... params) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(target.getClass().getName());
-                sb.append(method.getName());
-                for (Object obj : params) {
-                    sb.append(obj.toString());
-                }
-                return sb.toString();
-            }
-        };
+    public RedisConnectionFactory jedisConnectionFactory() {
+        RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration() .master("mymaster")
+                .sentinel("127.0.0.1", 26379) .sentinel("127.0.0.1", 26380) .sentinel("127.0.0.1", 26381);
+        return new JedisConnectionFactory(sentinelConfig);
     }
 
+    /**
+     * lettuce
+     */
     @Bean
-    JedisConnectionFactory jedisConnectionFactory() {
-        JedisConnectionFactory factory = new JedisConnectionFactory();
-        factory.setHostName(appSettings.getApp_redis_host());
-        factory.setPort(appSettings.getApp_redis_port());
-        factory.setTimeout(appSettings.getApp_redis_timeout()); //设置连接超时时间
-        return factory;
-    }
-
-    @Bean
-    public CacheManager cacheManager(RedisTemplate redisTemplate) {
-        RedisCacheManager cacheManager = new RedisCacheManager(redisTemplate);
-        cacheManager.setDefaultExpiration(10); //设置key-value超时时间
-        return cacheManager;
-    }
-
-    @Bean
-    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
-        StringRedisTemplate template = new StringRedisTemplate(factory);
-        setSerializer(template); //设置序列化工具，这样ReportBean不需要实现Serializable接口
-        template.afterPropertiesSet();
-        return template;
-    }
-
-    private void setSerializer(StringRedisTemplate template) {
-        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        jackson2JsonRedisSerializer.setObjectMapper(om);
-        template.setValueSerializer(jackson2JsonRedisSerializer);
+    public RedisConnectionFactory lettuceConnectionFactory() {
+        RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration().master("mymaster")
+                .sentinel("127.0.0.1", 26379) .sentinel("127.0.0.1", 26380) .sentinel("127.0.0.1", 26381);
+        return new LettuceConnectionFactory(sentinelConfig);
     }
 
 }

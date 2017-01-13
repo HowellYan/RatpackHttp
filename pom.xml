@@ -18,7 +18,7 @@
     <properties>
         <ratpack.version>1.4.4</ratpack.version>
         <spring.boot.version>1.3.0.RELEASE</spring.boot.version>
-        <spring-boot-version>1.4.2.RELEASE</spring-boot-version>
+        <spring-boot-version>1.4.3.RELEASE</spring-boot-version>
         <mybatis.version>3.4.1</mybatis.version>
         <mybatis.spring.verison>1.3.0</mybatis.spring.verison>
         <mapper.version>3.3.9</mapper.version>
