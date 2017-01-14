@@ -2,11 +2,11 @@ package cn.com.ratpack.controller;
 
 import cn.com.ratpack.Dao.UserDao;
 import cn.com.ratpack.dbModel.UserModel;
+import cn.com.ratpack.settings.redis.RedisConnection;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.redis.connection.RedisClusterConnection;
 import org.springframework.stereotype.Controller;
 import ratpack.exec.Promise;
 import ratpack.func.Action;
@@ -24,7 +24,7 @@ public class TestController {
     private UserDao userDao;
 
     @Autowired
-    private RedisClusterConnection redisConnection;
+    private RedisConnection redisConnection;
 
     @Bean
     public Action<Chain> index() {
@@ -40,11 +40,9 @@ public class TestController {
                     jsonObject.put("pass", userModel.getU_pass());
 
                     userDao.findAll();
-                    String result = "NO";
+                    redisConnection.set("abc", "123, 杨海华");
 
-                   // result = redisConnection;
-
-                    log.info("result : "+result);
+                    log.info("result : "+redisConnection.get("abc"));
 
                     ctx.render(jsonObject.toString());
                 });
