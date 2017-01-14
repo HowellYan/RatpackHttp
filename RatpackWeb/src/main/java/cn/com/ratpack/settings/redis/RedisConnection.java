@@ -1,55 +1,62 @@
 package cn.com.ratpack.settings.redis;
 
-import org.apache.commons.io.IOUtils;
+import cn.com.ratpack.settings.properties.AppSettings;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisClusterConnection;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-
-import java.io.IOException;
+import org.springframework.data.redis.connection.RedisSentinelConfiguration;
+import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import redis.clients.jedis.JedisPoolConfig;
 
 
 /**
  * Created by Howell on 13/1/17.
  */
 @Configuration
+@Slf4j
 public class RedisConnection {
-    private RedisClusterConnection connection;
+    @Autowired
+    AppSettings appSettings;
 
     @Autowired
-    RedisConnectionFactory redisConnectionFactory;
+    RedisTemplate<String, String> redisTemplate;
 
-    public RedisConnection(){
-        connection = redisConnectionFactory.getClusterConnection();
+    /**
+     * redis sentinel config
+     */
+    @Bean
+    public RedisConnectionFactory jedisConnectionFactory() {
+        RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration() .master("mymaster")
+                .sentinel("127.0.0.1", 26379) .sentinel("127.0.0.1", 26380) .sentinel("127.0.0.1", 26381);
+        return new JedisConnectionFactory(sentinelConfig, jedisPoolConfig());
+    }
+
+    public JedisPoolConfig jedisPoolConfig(){
+        JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
+        jedisPoolConfig.setMaxIdle(10);
+        jedisPoolConfig.setMaxTotal(20);
+        jedisPoolConfig.setMaxWaitMillis(300);
+        jedisPoolConfig.setTestOnBorrow(true);
+        jedisPoolConfig.setTestOnReturn(true);
+        return jedisPoolConfig;
     }
 
     public void set(final String key, final String value) {
-        try {
-            byte[] key_byte = IOUtils.toByteArray(key);
-            byte[] value_byte = IOUtils.toByteArray(value);
-            connection.set(key_byte, value_byte);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
+        opsForValue.set(key, value);
     }
 
     public String get(final String key) {
-        try {
-            byte[] key_byte = IOUtils.toByteArray(key);
-            return IOUtils.toString(connection.get(key_byte));
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "error";
-        }
+        ValueOperations<String, String> opsForValue = redisTemplate.opsForValue();
+        return opsForValue.get(key);
     }
 
     public void delete(final String key) {
-        try {
-            byte[] key_byte = IOUtils.toByteArray(key);
-            connection.del(key_byte);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+       redisTemplate.delete(key);
     }
 
 
