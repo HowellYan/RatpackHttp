@@ -3,8 +3,10 @@ package cn.com.ratpack.settings.redis;
 import cn.com.ratpack.settings.properties.AppSettings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -30,12 +32,23 @@ public class RedisConnection {
      */
     @Bean
     public RedisConnectionFactory jedisConnectionFactory() {
-        RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration() .master("mymaster")
-                .sentinel("127.0.0.1", 26379) .sentinel("127.0.0.1", 26380) .sentinel("127.0.0.1", 26381);
+        RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration();
+
+        String master = appSettings.getRedis_sentinel_master();
+        String nodes = appSettings.getRedis_sentinel_nodes();
+        String[] nodesArray = nodes.split(",");
+
+        sentinelConfig.master(master);
+        for (int i=0; i < nodesArray.length; i++){
+            String[] node = nodesArray[i].split(":");
+            sentinelConfig.sentinel(node[0], Integer.parseInt(node[1]));
+        }
+
         return new JedisConnectionFactory(sentinelConfig, jedisPoolConfig());
     }
 
     public JedisPoolConfig jedisPoolConfig(){
+
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(10);
         jedisPoolConfig.setMaxTotal(20);

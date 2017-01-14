@@ -8,18 +8,13 @@ app.mysql_aliyun_minIdle=${app_mysql_aliyun_minIdle}
 app.mysql_aliyun_maxWait=${app_mysql_aliyun_maxWait}
 app.mysql_aliyun_timeBetweenEvictionRunsMillis=${app_mysql_aliyun_timeBetweenEvictionRunsMillis}
 
-app.redis_database=${app_redis_database}
-app.redis_host=${app_redis_host}
-app.redis_password=${app_redis_password}
-app.redis_pool_max_active=${app_redis_pool_max_active}
-app.redis_pool_max_idle=${app_redis_pool_max_idle}
-app.redis_pool_max_wait=${app_redis_pool_max_wait}
-app.redis_pool_min_idle=${app_redis_pool_min_idle}
-app.redis_port=${app_redis_port}
+app.redis_pool_maxTotal=${app_redis_pool_maxTotal}
+app.redis_pool_maxIdle=${app_redis_pool_maxIdle}
+app.redis_pool_maxWaitMillis=${app_redis_pool_maxWaitMillis}
+app.redis_pool_testOnBorrow=${app_redis_pool_testOnBorrow}
+app.redis_pool_testOnReturn=${app_redis_pool_testOnReturn}
 app.redis_sentinel_master=${app_redis_sentinel_master}
 app.redis_sentinel_nodes=${app_redis_sentinel_nodes}
-app.redis_timeout=${app_redis_timeout}
-
 
 logLevel=${logLevel}
 logRoot=${logRoot}

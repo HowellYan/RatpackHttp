@@ -18,19 +18,13 @@ public class AppSettings {
     String mysql_aliyun_minIdle;
     String mysql_aliyun_maxWait;
     String mysql_aliyun_timeBetweenEvictionRunsMillis;
-
-    String app_redis_database;
-    String app_redis_host;
-    String app_redis_password;
-    String app_redis_pool_max_active;
-    String app_redis_pool_max_idle;
-    String app_redis_pool_max_wait;
-    String app_redis_pool_min_idle;
-    int app_redis_port;
-    String app_redis_sentinel_master;
-    String app_redis_sentinel_nodes;
-    int app_redis_timeout;
-
+    String redis_pool_maxTotal;
+    String redis_pool_maxIdle;
+    String redis_pool_maxWaitMillis;
+    String redis_pool_testOnBorrow;
+    String redis_pool_testOnReturn;
+    String redis_sentinel_master;
+    String redis_sentinel_nodes;
 
     public String getMysql_aliyun() {
         return mysql_aliyun;
@@ -104,91 +98,59 @@ public class AppSettings {
         this.mysql_aliyun_timeBetweenEvictionRunsMillis = mysql_aliyun_timeBetweenEvictionRunsMillis;
     }
 
-    public String getApp_redis_database() {
-        return app_redis_database;
+    public String getRedis_pool_maxTotal() {
+        return redis_pool_maxTotal;
     }
 
-    public void setApp_redis_database(String app_redis_database) {
-        this.app_redis_database = app_redis_database;
+    public void setRedis_pool_maxTotal(String redis_pool_maxTotal) {
+        this.redis_pool_maxTotal = redis_pool_maxTotal;
     }
 
-    public String getApp_redis_host() {
-        return app_redis_host;
+    public String getRedis_pool_maxIdle() {
+        return redis_pool_maxIdle;
     }
 
-    public void setApp_redis_host(String app_redis_host) {
-        this.app_redis_host = app_redis_host;
+    public void setRedis_pool_maxIdle(String redis_pool_maxIdle) {
+        this.redis_pool_maxIdle = redis_pool_maxIdle;
     }
 
-    public String getApp_redis_password() {
-        return app_redis_password;
+    public String getRedis_pool_maxWaitMillis() {
+        return redis_pool_maxWaitMillis;
     }
 
-    public void setApp_redis_password(String app_redis_password) {
-        this.app_redis_password = app_redis_password;
+    public void setRedis_pool_maxWaitMillis(String redis_pool_maxWaitMillis) {
+        this.redis_pool_maxWaitMillis = redis_pool_maxWaitMillis;
     }
 
-    public String getApp_redis_pool_max_active() {
-        return app_redis_pool_max_active;
+    public String getRedis_pool_testOnBorrow() {
+        return redis_pool_testOnBorrow;
     }
 
-    public void setApp_redis_pool_max_active(String app_redis_pool_max_active) {
-        this.app_redis_pool_max_active = app_redis_pool_max_active;
+    public void setRedis_pool_testOnBorrow(String redis_pool_testOnBorrow) {
+        this.redis_pool_testOnBorrow = redis_pool_testOnBorrow;
     }
 
-    public String getApp_redis_pool_max_idle() {
-        return app_redis_pool_max_idle;
+    public String getRedis_pool_testOnReturn() {
+        return redis_pool_testOnReturn;
     }
 
-    public void setApp_redis_pool_max_idle(String app_redis_pool_max_idle) {
-        this.app_redis_pool_max_idle = app_redis_pool_max_idle;
+    public void setRedis_pool_testOnReturn(String redis_pool_testOnReturn) {
+        this.redis_pool_testOnReturn = redis_pool_testOnReturn;
     }
 
-    public String getApp_redis_pool_max_wait() {
-        return app_redis_pool_max_wait;
+    public String getRedis_sentinel_master() {
+        return redis_sentinel_master;
     }
 
-    public void setApp_redis_pool_max_wait(String app_redis_pool_max_wait) {
-        this.app_redis_pool_max_wait = app_redis_pool_max_wait;
+    public void setRedis_sentinel_master(String redis_sentinel_master) {
+        this.redis_sentinel_master = redis_sentinel_master;
     }
 
-    public String getApp_redis_pool_min_idle() {
-        return app_redis_pool_min_idle;
+    public String getRedis_sentinel_nodes() {
+        return redis_sentinel_nodes;
     }
 
-    public void setApp_redis_pool_min_idle(String app_redis_pool_min_idle) {
-        this.app_redis_pool_min_idle = app_redis_pool_min_idle;
-    }
-
-    public int getApp_redis_port() {
-        return app_redis_port;
-    }
-
-    public void setApp_redis_port(int app_redis_port) {
-        this.app_redis_port = app_redis_port;
-    }
-
-    public String getApp_redis_sentinel_master() {
-        return app_redis_sentinel_master;
-    }
-
-    public void setApp_redis_sentinel_master(String app_redis_sentinel_master) {
-        this.app_redis_sentinel_master = app_redis_sentinel_master;
-    }
-
-    public String getApp_redis_sentinel_nodes() {
-        return app_redis_sentinel_nodes;
-    }
-
-    public void setApp_redis_sentinel_nodes(String app_redis_sentinel_nodes) {
-        this.app_redis_sentinel_nodes = app_redis_sentinel_nodes;
-    }
-
-    public int getApp_redis_timeout() {
-        return app_redis_timeout;
-    }
-
-    public void setApp_redis_timeout(int app_redis_timeout) {
-        this.app_redis_timeout = app_redis_timeout;
+    public void setRedis_sentinel_nodes(String redis_sentinel_nodes) {
+        this.redis_sentinel_nodes = redis_sentinel_nodes;
     }
 }
