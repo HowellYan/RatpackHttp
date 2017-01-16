@@ -10,4 +10,9 @@ clean package -Dmaven.compile.fork=true -Dmaven.test.skip -Dautoconfig.userPrope
 java -jar RatpackWeb-1.0-SNAPSHOT.jar
 ```
 
+
+```
+exec nohup java -jar *.jar > out.log 2>&1&
+```
+
 * Howell (<th15817161961@gmail.com>)
