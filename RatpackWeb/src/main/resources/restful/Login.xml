@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="DefaultAction.xml"/>
+
+    <bean id="LoginBean" name="LoginBean" class="cn.com.ratpack.restful.DefaultRestfulModel">
+        <property name="action" value="api/login" />
+        <property name="method" value="post" />
+        <property name="request" ref="LoginRequest" />
+        <property name="response" ref="LoginResponse" />
+    </bean>
+
+    <bean id="LoginRequest" name="LoginRequest" class="cn.com.ratpack.restful.DefaultRequest">
+        <property name="request">
+            <map>
+                <entry key="tel" value="string"/>
+                <entry key="password" value="string"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="LoginResponse" name="LoginResponse" class="cn.com.ratpack.restful.DefaultResponse">
+
+    </bean>
+
+
+    <bean id="LoginRestful" factory-bean="DefaultAction" factory-method="restfulAction">
+        <constructor-arg ref="LoginBean" index="0"/>
+    </bean>
+</beans>

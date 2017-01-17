@@ -4,6 +4,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
 
 /**
  * Created by Howell on 12/12/16.
@@ -16,6 +17,7 @@ import org.springframework.context.annotation.ComponentScan;
 @MapperScan({
         "cn.com.ratpack"
 })
+@ImportResource({ "classpath:restful/*.xml", "classpath:restful/**/*.xml" })
 public class SpringBootApp   {
 
     public static void main(String... args) throws Exception {

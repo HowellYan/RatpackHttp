@@ -53,7 +53,7 @@ public class TestController {
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code","100000");
-
+        log.info("api/name");
         return PrefixChain -> PrefixChain.prefix("api/name", GChain -> GChain
                 .all(context ->{
                     context.byMethod(method -> {

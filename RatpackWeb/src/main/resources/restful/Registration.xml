@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <import resource="DefaultAction.xml"/>
+    <bean id="RegistrationBean" name="RegistrationBean" class="cn.com.ratpack.restful.DefaultRestfulModel">
+        <property name="action" value="api/registration" />
+        <property name="method" value="post" />
+        <property name="request" ref="RegistrationRequest" />
+        <property name="response" ref="RegistrationResponse" />
+    </bean>
+
+    <bean id="RegistrationRequest" name="RegistrationRequest" class="cn.com.ratpack.restful.DefaultRequest">
+
+    </bean>
+
+    <bean id="RegistrationResponse" name="RegistrationResponse" class="cn.com.ratpack.restful.DefaultResponse">
+
+    </bean>
+
+    <bean id="RegistrationRestful" factory-bean="DefaultAction" factory-method="restfulAction">
+        <constructor-arg ref="RegistrationBean" index="0"/>
+    </bean>
+
+</beans>
