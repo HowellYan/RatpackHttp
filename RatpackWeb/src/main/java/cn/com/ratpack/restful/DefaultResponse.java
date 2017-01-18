@@ -12,5 +12,5 @@ import java.util.Map;
 @Data
 @ToString(callSuper = true)
 public class DefaultResponse implements Serializable {
-    private Map<String, String> response;
+    private Map<String, Object> response;
 }

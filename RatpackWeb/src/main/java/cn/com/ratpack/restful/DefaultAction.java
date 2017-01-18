@@ -1,6 +1,7 @@
 package cn.com.ratpack.restful;
 
 import cn.com.ratpack.RestfulModel.response.CommonResponse;
+import cn.com.ratpack.RestfulModel.util.CommonCode;
 import cn.com.ratpack.restful.template.SingleTemplate;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
@@ -20,8 +21,13 @@ import java.util.Map;
 @Slf4j
 public class DefaultAction {
 
-    public Action<Chain> restfulAction(@Autowired DefaultRestfulModel defaultRestfulModel, @Autowired SingleTemplate<DefaultRequest, DefaultResponse> singleTemplate) {
+    public Action<Chain> restfulAction(@Autowired DefaultRestfulModel defaultRestfulModel,
+                                       @Autowired SingleTemplate<DefaultRequest, DefaultResponse, DefaultRestfulModel> singleTemplate) {
         log.info("Action: "+ defaultRestfulModel.getAction());
+
+        DefaultRequest defaultRequest = defaultRestfulModel.getRequest();
+        String SqlDML = defaultRestfulModel.getSqlDML();
+
         return PrefixChain -> PrefixChain.prefix(defaultRestfulModel.getAction(), GChain -> GChain
                 .all(context ->{
                     context.byMethod(method -> {
@@ -30,43 +36,42 @@ public class DefaultAction {
                                 Promise<TypedData> json = context.getRequest().getBody(); // 请求数据
                                 log.info("ContentType :"+context.getRequest().getContentType());
 
-
-                                DefaultRequest defaultRequest = defaultRestfulModel.getRequest();
                                 Map<String, String> request = defaultRequest.getRequest(); // 请求参数模板
-
-                                if(singleTemplate != null){
-                                    singleTemplate.call(defaultRequest);
-                                }
-
 
                                 if(context.getRequest().getContentType().toString().contains("application/json")){
                                     json.then(typedData ->{
                                         JSONObject jsonRes = JSONObject.fromObject(typedData.getText());
 
-                                        request.forEach((k,v)->{
-                                            //todo
-                                            jsonRes.get(k);
-
+                                        request.forEach((k,v) -> {
+                                            request.replace(k, jsonRes.getString(k));
                                         });
-
-                                        CommonResponse<DefaultResponse> response = new  CommonResponse<DefaultResponse>();
-                                        DefaultResponse defaultResponse = defaultRestfulModel.getResponse();
-                                        Map<String, String> map = defaultResponse.getResponse();
-                                        map.forEach((k,v)->{
-                                            //todo
-                                            map.put(k, "123");
-                                        });
-                                        defaultResponse.setResponse(map);
-                                        response.setResult(defaultResponse);
-                                        response.setCode("000000");
-                                        response.setMsg("Success");
-
-                                        context.getResponse().send(JSONObject.fromObject(response).toString());
+                                        defaultRequest.setRequest(request);
+                                        //判断
+                                        if(singleTemplate != null){
+                                            CommonResponse<DefaultResponse> response = singleTemplate.call(defaultRequest, defaultRestfulModel);
+                                            context.getResponse().send(JSONObject.fromObject(response).toString());
+                                        } else if (SqlDML != null){
+                                            CommonResponse<DefaultResponse> response = null;
+                                            switch (SqlDML) {
+                                                case "SELECT":
+                                                    response = SELECT(defaultRestfulModel);
+                                                case "INSERT":
+                                                    response = INSERT(defaultRestfulModel);
+                                                case "UPDATE":
+                                                    response = UPDATE(defaultRestfulModel);
+                                                case "DELETE":
+                                                    response = DELETE(defaultRestfulModel);
+                                                    default:
+                                                        response = new CommonResponse<DefaultResponse>(CommonCode.Configuration_msg);
+                                            }
+                                            context.getResponse().send(JSONObject.fromObject(response).toString());
+                                        } else {
+                                            CommonResponse<DefaultResponse> response = new  CommonResponse<DefaultResponse>(CommonCode.Configuration_msg);
+                                            context.getResponse().send(JSONObject.fromObject(response).toString());
+                                        }
                                     });
                                 } else {
-                                    CommonResponse<DefaultResponse> response = new  CommonResponse<DefaultResponse>();
-                                    response.setCode("999998");
-                                    response.setMsg("Please modify requested that ContentType is 'application/json' type");
+                                    CommonResponse<DefaultResponse> response = new  CommonResponse<DefaultResponse>(CommonCode.ContentType_msg);
                                     context.getResponse().send(JSONObject.fromObject(response).toString());
                                 }
                             });
@@ -80,6 +85,34 @@ public class DefaultAction {
                 })
         );
 
+    }
+
+    public CommonResponse<DefaultResponse> SELECT(DefaultRestfulModel defaultRestfulModel){
+
+        CommonResponse<DefaultResponse> response = new  CommonResponse<DefaultResponse>();
+        DefaultResponse defaultResponse = defaultRestfulModel.getResponse();
+        Map<String, Object> map = defaultResponse.getResponse();
+        map.forEach((k,v)->{
+            //todo
+            map.put(k, "123");
+        });
+
+        defaultResponse.setResponse(map);
+        response.setResult(defaultResponse);
+
+        return response;
+    }
+
+    public CommonResponse<DefaultResponse> INSERT(DefaultRestfulModel defaultRestfulModel){
+        return null;
+    }
+
+    public CommonResponse<DefaultResponse> UPDATE(DefaultRestfulModel defaultRestfulModel){
+        return null;
+    }
+
+    public CommonResponse<DefaultResponse> DELETE(DefaultRestfulModel defaultRestfulModel){
+        return null;
     }
 
 }

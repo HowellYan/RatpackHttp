@@ -37,7 +37,11 @@
                 <artifactId>RatpackService</artifactId>
                 <version>${parent.version}</version>
             </dependency>
-
+            <dependency>
+                <groupId>RatpackHttp</groupId>
+                <artifactId>RatpackCommons</artifactId>
+                <version>${parent.version}</version>
+            </dependency>
             <!-- ratpack start -->
             <dependency>
                 <groupId>io.ratpack</groupId>

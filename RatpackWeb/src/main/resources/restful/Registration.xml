@@ -8,6 +8,7 @@
         <property name="method" value="post" />
         <property name="request" ref="RegistrationRequest" />
         <property name="response" ref="RegistrationResponse" />
+        <property name="sqlDML" value="INSERT"/>
     </bean>
 
     <bean id="RegistrationRequest" name="RegistrationRequest" class="cn.com.ratpack.restful.DefaultRequest">
@@ -18,10 +19,10 @@
 
     </bean>
 
-    <bean id="LoginService" name="LoginService" class="cn.com.ratpack.service.LoginService"></bean>
+
     <bean id="RegistrationRestful" factory-bean="DefaultAction" factory-method="restfulAction">
         <constructor-arg ref="RegistrationBean" index="0"/>
-        <constructor-arg ref="LoginService" index="1"/>
+        <constructor-arg index="1"><null/></constructor-arg>
     </bean>
 
 </beans>

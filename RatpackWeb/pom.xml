@@ -25,8 +25,10 @@
             <groupId>RatpackHttp</groupId>
             <artifactId>RatpackService</artifactId>
         </dependency>
-
-
+        <dependency>
+            <groupId>RatpackHttp</groupId>
+            <artifactId>RatpackCommons</artifactId>
+        </dependency>
         <dependency>
             <groupId>io.ratpack</groupId>
             <artifactId>ratpack-guice</artifactId>
@@ -56,13 +58,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-redis</artifactId>
         </dependency>
-
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
-
-
 
         <dependency>
             <groupId>org.apache.commons</groupId>

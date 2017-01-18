@@ -10,6 +10,7 @@
         <property name="method" value="post" />
         <property name="request" ref="LoginRequest" />
         <property name="response" ref="LoginResponse" />
+
     </bean>
 
     <bean id="LoginRequest" name="LoginRequest" class="cn.com.ratpack.restful.DefaultRequest">
@@ -25,6 +26,7 @@
         <property name="response">
             <map>
                 <entry key="sessionID" value="sessionID" value-type="java.lang.String"/>
+                <entry key="T_info_user"><null/></entry>
             </map>
         </property>
     </bean>
