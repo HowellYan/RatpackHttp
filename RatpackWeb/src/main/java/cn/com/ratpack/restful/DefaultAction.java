@@ -1,7 +1,6 @@
 package cn.com.ratpack.restful;
 
 import cn.com.ratpack.RestfulModel.response.CommonResponse;
-import cn.com.ratpack.RestfulModel.response.base.ExternalResponse;
 import cn.com.ratpack.restful.template.SingleTemplate;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
@@ -19,14 +18,9 @@ import java.util.Map;
  */
 @Controller
 @Slf4j
-public class DefaultAction extends SingleTemplate<DefaultRequest, DefaultResponse> {
+public class DefaultAction {
 
-    @Override
-    protected ExternalResponse<DefaultResponse> callInner(DefaultRequest request) {
-        return null;
-    }
-
-    public Action<Chain> restfulAction(@Autowired DefaultRestfulModel defaultRestfulModel) {
+    public Action<Chain> restfulAction(@Autowired DefaultRestfulModel defaultRestfulModel, @Autowired SingleTemplate<DefaultRequest, DefaultResponse> singleTemplate) {
         log.info("Action: "+ defaultRestfulModel.getAction());
         return PrefixChain -> PrefixChain.prefix(defaultRestfulModel.getAction(), GChain -> GChain
                 .all(context ->{
@@ -39,6 +33,10 @@ public class DefaultAction extends SingleTemplate<DefaultRequest, DefaultRespons
 
                                 DefaultRequest defaultRequest = defaultRestfulModel.getRequest();
                                 Map<String, String> request = defaultRequest.getRequest(); // 请求参数模板
+
+                                if(singleTemplate != null){
+                                    singleTemplate.call(defaultRequest);
+                                }
 
 
                                 if(context.getRequest().getContentType().toString().contains("application/json")){

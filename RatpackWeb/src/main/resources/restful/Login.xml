@@ -30,7 +30,10 @@
     </bean>
 
 
+    <bean id="LoginService" name="LoginService" class="cn.com.ratpack.service.LoginService"></bean>
     <bean id="LoginRestful" factory-bean="DefaultAction" factory-method="restfulAction">
         <constructor-arg ref="LoginBean" index="0"/>
+        <constructor-arg ref="LoginService" index="1"/>
     </bean>
+
 </beans>

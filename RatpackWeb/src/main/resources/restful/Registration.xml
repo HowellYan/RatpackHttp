@@ -18,8 +18,10 @@
 
     </bean>
 
+    <bean id="LoginService" name="LoginService" class="cn.com.ratpack.service.LoginService"></bean>
     <bean id="RegistrationRestful" factory-bean="DefaultAction" factory-method="restfulAction">
         <constructor-arg ref="RegistrationBean" index="0"/>
+        <constructor-arg ref="LoginService" index="1"/>
     </bean>
 
 </beans>
