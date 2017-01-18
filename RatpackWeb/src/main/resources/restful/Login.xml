@@ -15,14 +15,18 @@
     <bean id="LoginRequest" name="LoginRequest" class="cn.com.ratpack.restful.DefaultRequest">
         <property name="request">
             <map>
-                <entry key="tel" value="string"/>
-                <entry key="password" value="string"/>
+                <entry key="tel" value="tel" value-type="java.lang.String"/>
+                <entry key="password" value="password" value-type="java.lang.String"/>
             </map>
         </property>
     </bean>
 
     <bean id="LoginResponse" name="LoginResponse" class="cn.com.ratpack.restful.DefaultResponse">
-
+        <property name="response">
+            <map>
+                <entry key="sessionID" value="sessionID" value-type="java.lang.String"/>
+            </map>
+        </property>
     </bean>
 
 

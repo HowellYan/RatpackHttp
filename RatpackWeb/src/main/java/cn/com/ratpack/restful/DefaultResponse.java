@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
  * Created by Howell on 17/1/17.
@@ -11,4 +12,5 @@ import java.io.Serializable;
 @Data
 @ToString(callSuper = true)
 public class DefaultResponse implements Serializable {
+    private Map<String, String> response;
 }

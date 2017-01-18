@@ -27,8 +27,8 @@ public abstract class SingleTemplate<Request extends CommonRequest, Response> {
         } catch (Exception e) {
             log.error("[{}] Request验证不通过,类:[{}],请求:[{}],异常:[{}]", request.getKeep(), this.getClass().getName(), request.toString(), e);
             response = new ExternalResponse<Response>();
-            response.setErrorCode("999999");
-            response.setErrorMsg("Request验证不通过");
+            response.setCode("999999");
+            response.setMsg("Request验证不通过");
         }
         return response;
     }

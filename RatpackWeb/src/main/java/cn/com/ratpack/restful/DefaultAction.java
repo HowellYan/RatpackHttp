@@ -1,5 +1,6 @@
 package cn.com.ratpack.restful;
 
+import cn.com.ratpack.RestfulModel.response.CommonResponse;
 import cn.com.ratpack.RestfulModel.response.base.ExternalResponse;
 import cn.com.ratpack.restful.template.SingleTemplate;
 import lombok.extern.slf4j.Slf4j;
@@ -25,8 +26,6 @@ public class DefaultAction extends SingleTemplate<DefaultRequest, DefaultRespons
         return null;
     }
 
-
-
     public Action<Chain> restfulAction(@Autowired DefaultRestfulModel defaultRestfulModel) {
         log.info("Action: "+ defaultRestfulModel.getAction());
         return PrefixChain -> PrefixChain.prefix(defaultRestfulModel.getAction(), GChain -> GChain
@@ -47,14 +46,30 @@ public class DefaultAction extends SingleTemplate<DefaultRequest, DefaultRespons
                                         JSONObject jsonRes = JSONObject.fromObject(typedData.getText());
 
                                         request.forEach((k,v)->{
+                                            //todo
                                             jsonRes.get(k);
 
                                         });
 
-                                        context.getResponse().send("ok");
+                                        CommonResponse<DefaultResponse> response = new  CommonResponse<DefaultResponse>();
+                                        DefaultResponse defaultResponse = defaultRestfulModel.getResponse();
+                                        Map<String, String> map = defaultResponse.getResponse();
+                                        map.forEach((k,v)->{
+                                            //todo
+                                            map.put(k, "123");
+                                        });
+                                        defaultResponse.setResponse(map);
+                                        response.setResult(defaultResponse);
+                                        response.setCode("000000");
+                                        response.setMsg("Success");
+
+                                        context.getResponse().send(JSONObject.fromObject(response).toString());
                                     });
                                 } else {
-                                    context.getResponse().send("ok");
+                                    CommonResponse<DefaultResponse> response = new  CommonResponse<DefaultResponse>();
+                                    response.setCode("999998");
+                                    response.setMsg("Please modify requested that ContentType is 'application/json' type");
+                                    context.getResponse().send(JSONObject.fromObject(response).toString());
                                 }
                             });
                         } else if(defaultRestfulModel.getMethod().equals("get")) {
