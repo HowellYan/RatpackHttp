@@ -33,17 +33,17 @@ public class LoginService extends SingleTemplate<DefaultRequest, DefaultResponse
         Map<String, String> reqMap = request.getRequest();
 
        // T_info_user t_info_user = userMapper.getInfoUser(reqMap.get("tel"), Md5.encode(reqMap.get("password")));
-        List<T_info_user> t_info_user = userMapper.findHaveUser(reqMap.get("tel"));
+        T_info_user t_info_user = userMapper.findUser(reqMap.get("tel"));
 
-        if(t_info_user != null && t_info_user.size() == 1){
+        if(t_info_user != null){
             //响应模型
-            T_info_user infoUser = t_info_user.get(0);
+
             Map<String, Object> respMap = model.getResponse().getResponse();
-            log.info("getPassword:"+infoUser.getPassword().toUpperCase());
+            log.info("getPassword:"+t_info_user.getPassword().toUpperCase());
             log.info("reqMap:"+Md5.encode(reqMap.get("password")));
             //校验密码
-            if(infoUser.getPassword().toUpperCase().equals(Md5.encode(reqMap.get("password")))){
-                respMap.replace("T_info_user", infoUser);
+            if(t_info_user.getPassword().toUpperCase().equals(Md5.encode(reqMap.get("password")))){
+                respMap.replace("T_info_user", t_info_user);
                 defaultResponse.setResponse(respMap);
                 response.setResult(defaultResponse);
             } else {

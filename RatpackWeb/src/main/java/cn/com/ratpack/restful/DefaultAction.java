@@ -77,7 +77,10 @@ public class DefaultAction {
                             });
                         } else if(defaultRestfulModel.getMethod().equals("get")) {
                             method.get(()->{
-                                context.getResponse().send("ok");
+                                //context.getResponse().send("ok");
+                                CommonResponse<DefaultResponse> response = singleTemplate.call(defaultRequest, defaultRestfulModel);
+                                context.getResponse().send(JSONObject.fromObject(response).toString());
+
                             });
                         }
 

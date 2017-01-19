@@ -24,6 +24,8 @@ public interface UserMapper {
     T_info_user getInfoUser(@Param("tel") String tel, @Param("password") String password);
 
     @Select("SELECT * from T_info_user where tel=#{tel}")
-    List<T_info_user> findHaveUser(@Param("tel") String tel);
+    T_info_user findHaveUser(@Param("tel") String tel);
+
+    T_info_user findUser(@Param("tel") String tel);
 
 }
