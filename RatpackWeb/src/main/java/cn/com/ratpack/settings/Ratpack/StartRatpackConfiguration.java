@@ -36,8 +36,8 @@ public class StartRatpackConfiguration implements CommandLineRunner {
     @Autowired
     private RatpackServer server;
 
-    public StartRatpackConfiguration() {
-    }
+
+    public StartRatpackConfiguration() {}
 
     public void run(String... args) throws Exception {
         this.server.start();
@@ -52,14 +52,14 @@ public class StartRatpackConfiguration implements CommandLineRunner {
     protected static class ServerConfiguration {
         @Autowired
         private ServerConfig serverConfig;
+
         @Autowired
         private ChainConfigurers chainConfigurers;
 
         @Autowired(required = false)
         private List<RatpackServerCustomizer> customizers = Collections.emptyList();
 
-        protected ServerConfiguration() {
-        }
+        protected ServerConfiguration() {}
 
         @Bean
         public RatpackServer ratpackServer(ApplicationContext context) throws Exception {
@@ -95,8 +95,7 @@ public class StartRatpackConfiguration implements CommandLineRunner {
         @Autowired(required = false)
         private List<RatpackServerCustomizer> customizers = Collections.emptyList();
 
-        protected ServerConfigConfiguration() {
-        }
+        protected ServerConfigConfiguration() {}
 
         @Bean
         @ConditionalOnMissingBean

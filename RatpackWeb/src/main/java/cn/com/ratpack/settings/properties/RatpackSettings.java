@@ -9,14 +9,16 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "ratpack",locations = "classpath:config/ratpack.properties")
 public class RatpackSettings {
-    private Integer port;
+    public static Integer port = 0;
 
     public Integer getPort() {
         return port;
     }
 
     public void setPort(Integer port) {
-        this.port = port;
+        if(this.port == 0){
+            this.port = port;
+        }
     }
 
 }
