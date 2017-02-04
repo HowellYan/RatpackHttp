@@ -3,10 +3,8 @@ package cn.com.ratpack.settings.redis;
 import cn.com.ratpack.settings.properties.AppSettings;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -29,6 +27,7 @@ public class RedisConnection {
 
     /**
      * redis sentinel config
+     * @return RedisConnectionFactory
      */
     @Bean
     public RedisConnectionFactory jedisConnectionFactory() {
@@ -43,12 +42,15 @@ public class RedisConnection {
             String[] node = nodesArray[i].split(":");
             sentinelConfig.sentinel(node[0], Integer.parseInt(node[1]));
         }
-
         return new JedisConnectionFactory(sentinelConfig, jedisPoolConfig());
     }
 
-    public JedisPoolConfig jedisPoolConfig(){
 
+    /**
+     * redis pool config
+     * @return JedisPoolConfig
+     */
+    public JedisPoolConfig jedisPoolConfig(){
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(10);
         jedisPoolConfig.setMaxTotal(20);
