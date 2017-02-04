@@ -8,8 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * 公用抽象模板
- * Winlone 2015.5.6
- *
  * @param <Request>    最外层请求对象
  * @param <Response> 最外层结果对象
  */
