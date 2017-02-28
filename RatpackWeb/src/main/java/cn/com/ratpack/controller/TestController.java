@@ -36,6 +36,8 @@ public class TestController {
     @Autowired
     private PollableChannel pollableChannel;
 
+    int i=0;
+
     @Bean
     public Action<Chain> index() {
 
@@ -55,17 +57,37 @@ public class TestController {
                     log.info("result : "+redisConnection.get("abc"));
 
 
-                    kafkaTemplate.send("test.topic","123456");
+                    kafkaTemplate.send("test.topic","123456"+i++);
 
-                    Message<?> received = pollableChannel.receive(10000);
-                    while (received != null) {
-                        System.out.println(received.getPayload());
-                        received = pollableChannel.receive(10000);
-                    }
+//                    Message<?> received = pollableChannel.receive(10000);
+//                    while (received != null) {
+//                        System.out.println(received.getPayload());
+//                        received = pollableChannel.receive(10000);
+//                    }
 
                     ctx.render(jsonObject.toString());
                 });
     }
+
+    @Bean
+    public Action<Chain> getKafkaMsg() {
+        return PrefixChain -> PrefixChain.prefix("api/msg", GChain -> GChain
+                .all(context -> {
+                    context.byMethod(method -> {
+                        method.get(()->{
+
+                            Message<?> received = pollableChannel.receive(10000);
+                            while (received != null) {
+                                System.out.println(received.getPayload());
+                                received = pollableChannel.receive(10000);
+                            }
+                            context.getResponse().send("ok");
+                        });
+                    });
+                })
+        );
+    }
+
 
     @Bean
     public Action<Chain> getName() {
