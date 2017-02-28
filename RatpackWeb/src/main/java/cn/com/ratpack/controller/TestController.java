@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.PollableChannel;
 import org.springframework.stereotype.Controller;
 import ratpack.exec.Promise;
 import ratpack.func.Action;
@@ -23,8 +26,15 @@ public class TestController {
     @Autowired
     private UserDao userDao;
 
+    //redis 连接
     @Autowired
     private RedisConnection redisConnection;
+
+    @Autowired
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+    @Autowired
+    private PollableChannel pollableChannel;
 
     @Bean
     public Action<Chain> index() {
@@ -40,9 +50,18 @@ public class TestController {
                     jsonObject.put("pass", userModel.getU_pass());
 
                     userDao.findAll();
-                    redisConnection.set("abc", "123, 杨海华");
 
+                    redisConnection.set("abc", "123, 杨海华");
                     log.info("result : "+redisConnection.get("abc"));
+
+
+                    kafkaTemplate.send("test.topic","123456");
+
+                    Message<?> received = pollableChannel.receive(10000);
+                    while (received != null) {
+                        System.out.println(received.getPayload());
+                        received = pollableChannel.receive(10000);
+                    }
 
                     ctx.render(jsonObject.toString());
                 });

@@ -38,7 +38,7 @@ public class RedisConnection {
         String[] nodesArray = nodes.split(",");
 
         sentinelConfig.master(master);
-        for (int i=0; i < nodesArray.length; i++){
+        for (int i=0; i < nodesArray.length; i++) {
             String[] node = nodesArray[i].split(":");
             sentinelConfig.sentinel(node[0], Integer.parseInt(node[1]));
         }
@@ -50,7 +50,7 @@ public class RedisConnection {
      * redis pool config
      * @return JedisPoolConfig
      */
-    public JedisPoolConfig jedisPoolConfig(){
+    public JedisPoolConfig jedisPoolConfig() {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig();
         jedisPoolConfig.setMaxIdle(10);
         jedisPoolConfig.setMaxTotal(20);

@@ -1,5 +1,5 @@
 # RatpackHttp
-## Spring Boot + Ratpack + Mybatis + Redis
+## Spring Boot + Ratpack + Mybatis + Redis + kafka
 
 ```
 clean package -Dmaven.compile.fork=true -Dmaven.test.skip -Dautoconfig.userProperties=../config/dev.properties
