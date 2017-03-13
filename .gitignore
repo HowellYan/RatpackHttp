@@ -24,3 +24,4 @@ git.pub
 .dubbo/
 /*.iml
 config/
+rebel.xml

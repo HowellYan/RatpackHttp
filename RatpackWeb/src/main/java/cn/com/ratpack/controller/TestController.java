@@ -8,9 +8,12 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.PollableChannel;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.ListenableFutureCallback;
 import ratpack.exec.Promise;
 import ratpack.func.Action;
 import ratpack.handling.Chain;
@@ -57,15 +60,29 @@ public class TestController {
                     log.info("result : "+redisConnection.get("abc"));
 
 
-                    kafkaTemplate.send("test.topic","123456"+i++);
+                    ListenableFuture<SendResult<String, String>> send = kafkaTemplate.send("test.topic","123456"+i++);
+
+                    send.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+                        @Override
+                        public void onFailure(Throwable throwable) {
+                            log.info("result : onFailure");
+                        }
+
+                        @Override
+                        public void onSuccess(SendResult<String, String> stringStringSendResult) {
+                            log.info("result : onSuccess");
+                            jsonObject.put("result","onSuccess");
+
+                        }
+                    });
 
 //                    Message<?> received = pollableChannel.receive(10000);
 //                    while (received != null) {
 //                        System.out.println(received.getPayload());
 //                        received = pollableChannel.receive(10000);
 //                    }
-
                     ctx.render(jsonObject.toString());
+
                 });
     }
 
@@ -76,10 +93,10 @@ public class TestController {
                     context.byMethod(method -> {
                         method.get(()->{
 
-                            Message<?> received = pollableChannel.receive(10000);
+                            Message<?> received = pollableChannel.receive(2);
                             while (received != null) {
                                 System.out.println(received.getPayload());
-                                received = pollableChannel.receive(10000);
+                                received = pollableChannel.receive(2);
                             }
                             context.getResponse().send("ok");
                         });
@@ -87,6 +104,9 @@ public class TestController {
                 })
         );
     }
+
+
+
 
 
     @Bean
