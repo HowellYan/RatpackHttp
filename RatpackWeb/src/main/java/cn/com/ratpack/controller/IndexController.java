@@ -24,7 +24,7 @@ import ratpack.http.TypedData;
  */
 @Controller
 @Slf4j
-public class TestController {
+public class IndexController {
 
     @Autowired
     private UserDao userDao;
@@ -49,38 +49,39 @@ public class TestController {
 
         return chain -> chain
                 .get(ctx ->{
-                    UserModel userModel = userDao.findByID("1");
-                    jsonObject.put("id", userModel.getU_id());
-                    jsonObject.put("name", userModel.getU_name());
-                    jsonObject.put("pass", userModel.getU_pass());
-
-                    userDao.findAll();
-
-                    redisConnection.set("abc", "123, 杨海华");
-                    log.info("result : "+redisConnection.get("abc"));
-
-
-                    ListenableFuture<SendResult<String, String>> send = kafkaTemplate.send("test.topic","123456"+i++);
-
-                    send.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
-                        @Override
-                        public void onFailure(Throwable throwable) {
-                            log.info("result : onFailure");
-                        }
-
-                        @Override
-                        public void onSuccess(SendResult<String, String> stringStringSendResult) {
-                            log.info("result : onSuccess");
-                            jsonObject.put("result","onSuccess");
-
-                        }
-                    });
+//                    UserModel userModel = userDao.findByID("1");
+//                    jsonObject.put("id", userModel.getU_id());
+//                    jsonObject.put("name", userModel.getU_name());
+//                    jsonObject.put("pass", userModel.getU_pass());
+//
+//                    userDao.findAll();
+//
+//                    redisConnection.set("abc", "123, 杨海华");
+//                    log.info("result : "+redisConnection.get("abc"));
+//
+//
+//                    ListenableFuture<SendResult<String, String>> send = kafkaTemplate.send("test.topic","123456"+i++);
+//
+//                    send.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+//                        @Override
+//                        public void onFailure(Throwable throwable) {
+//                            log.info("result : onFailure");
+//                        }
+//
+//                        @Override
+//                        public void onSuccess(SendResult<String, String> stringStringSendResult) {
+//                            log.info("result : onSuccess");
+//                            jsonObject.put("result","onSuccess");
+//
+//                        }
+//                    });
 
 //                    Message<?> received = pollableChannel.receive(10000);
 //                    while (received != null) {
 //                        System.out.println(received.getPayload());
 //                        received = pollableChannel.receive(10000);
 //                    }
+
                     ctx.render(jsonObject.toString());
 
                 });

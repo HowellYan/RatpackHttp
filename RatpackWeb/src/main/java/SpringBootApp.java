@@ -1,10 +1,12 @@
 import cn.com.ratpack.settings.MyBatis.MyBatisLog;
 import cn.com.ratpack.settings.Ratpack.StartRatpack;
 import cn.com.ratpack.settings.properties.RatpackSettings;
+import cn.com.ratpack.settings.quartz.QuartzConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 
 /**
@@ -19,6 +21,7 @@ import org.springframework.context.annotation.ImportResource;
         "cn.com.ratpack"
 })
 @ImportResource({ "classpath:restful/*.xml", "classpath:restful/**/*.xml" })
+@Import(QuartzConfig.class)
 public class SpringBootApp   {
     public static void main(String... args) throws Exception {
         org.apache.ibatis.logging.LogFactory.useCustomLogging(MyBatisLog.class);
